@@ -4,181 +4,182 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pocket Call — Rapport Flonflon</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --cream:   #f5f0e8;
-    --paper:   #ede7d9;
-    --sand:    #d9cfc0;
-    --warm:    #2b2318;
-    --warm2:   #4a3728;
-    --muted:   #9a8e7e;
-    --rust:    #c0452a;
-    --gold:    #c8902a;
-    --goldf:   #e8b84b;
-    --teal:    #2a7c75;
-    --border:  rgba(43,35,24,0.12);
-    --border2: rgba(43,35,24,0.06);
-    --r:       14px;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--cream); color: var(--warm); font-family: 'DM Sans', sans-serif; font-size: 14px; min-height: 100vh; overflow-x: hidden; }
+:root {
+  --bg: #f7f4ef;
+  --white: #ffffff;
+  --ink: #1a1510;
+  --ink2: #3d3530;
+  --muted: #9a9088;
+  --yellow: #f5c842;
+  --orange: #f07030;
+  --pink: #e8547a;
+  --blue: #3a6fd8;
+  --mint: #42c4a8;
+  --border: rgba(26,21,16,0.1);
+  --border2: rgba(26,21,16,0.05);
+  --r: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--ink); font-family: 'Space Grotesk', sans-serif; font-size: 14px; min-height: 100vh; overflow-x: hidden; }
 
-  /* GRAIN */
-  body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events:none; z-index:9999; opacity:0.35; }
+/* NAV */
+.nav { position: sticky; top: 0; z-index: 200; background: rgba(247,244,239,0.96); backdrop-filter: blur(16px); border-bottom: 1.5px solid var(--border); padding: 0 16px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+.nav-logo { font-family: 'Instrument Serif', serif; font-size: 20px; font-style: italic; color: var(--ink); }
+.nav-logo span { color: var(--orange); font-style: normal; }
+.nav-sub { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-top: 1px; }
+.nav-weeks { background: var(--yellow); color: var(--ink); font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.5px; }
 
-  /* NAV */
-  .nav { position:sticky; top:0; z-index:200; background:rgba(245,240,232,0.96); backdrop-filter:blur(14px); border-bottom:1.5px solid var(--border); padding:0 18px; display:flex; align-items:center; justify-content:space-between; height:58px; }
-  .nav-logo { font-family:'Playfair Display',serif; font-size:22px; font-weight:900; letter-spacing:-0.5px; color:var(--warm); line-height:1; }
-  .nav-logo em { color:var(--rust); font-style:italic; }
-  .nav-sub { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-top:2px; }
-  .nav-tag { font-family:'DM Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:0.5px; }
+/* TABS */
+.tabs { position: sticky; top: 56px; z-index: 199; background: rgba(247,244,239,0.97); backdrop-filter: blur(12px); border-bottom: 1.5px solid var(--border); display: flex; overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { flex-shrink: 0; padding: 12px 15px; font-size: 11px; font-weight: 600; color: var(--muted); cursor: pointer; border-bottom: 2.5px solid transparent; transition: all 0.2s; white-space: nowrap; letter-spacing: 0.2px; }
+.tab.active { color: var(--orange); border-bottom-color: var(--orange); }
 
-  /* TABS */
-  .tabs { position:sticky; top:58px; z-index:199; background:rgba(245,240,232,0.97); backdrop-filter:blur(10px); border-bottom:1.5px solid var(--border); display:flex; overflow-x:auto; scrollbar-width:none; }
-  .tabs::-webkit-scrollbar { display:none; }
-  .tab { flex-shrink:0; padding:13px 16px; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.3px; color:var(--muted); cursor:pointer; border-bottom:2.5px solid transparent; transition:all 0.2s; white-space:nowrap; }
-  .tab.active { color:var(--rust); border-bottom-color:var(--rust); }
-  .tab:hover { color:var(--warm); }
+/* SECTIONS */
+.section { display: none; padding: 18px 14px 80px; }
+.section.active { display: block; }
 
-  /* SECTIONS */
-  .section { display:none; padding:20px 16px 88px; }
-  .section.active { display:block; }
+/* HERO */
+.hero { background: var(--ink); border-radius: var(--r); padding: 28px 20px; margin-bottom: 16px; position: relative; overflow: hidden; }
+.hero-blob { position: absolute; top: -30px; right: -30px; width: 140px; height: 140px; border-radius: 50%; background: var(--yellow); opacity: 0.15; }
+.hero-blob2 { position: absolute; bottom: -20px; left: 40px; width: 80px; height: 80px; border-radius: 50%; background: var(--orange); opacity: 0.12; }
+.hero-eye { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--yellow); margin-bottom: 10px; font-weight: 600; }
+.hero-title { font-family: 'Instrument Serif', serif; font-size: 48px; line-height: 0.9; color: #fff; margin-bottom: 14px; }
+.hero-title em { color: var(--yellow); }
+.hero-desc { font-size: 11px; color: rgba(255,255,255,0.45); line-height: 1.6; max-width: 260px; }
 
-  /* HERO */
-  .hero { background:var(--warm); border-radius:var(--r); padding:30px 22px 28px; margin-bottom:18px; position:relative; overflow:hidden; }
-  .hero::after { content:'♪'; position:absolute; bottom:-10px; right:16px; font-size:120px; opacity:0.06; color:var(--cream); font-family:'Playfair Display',serif; line-height:1; }
-  .hero-eyebrow { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--goldf); margin-bottom:10px; }
-  .hero-title { font-family:'Playfair Display',serif; font-size:42px; font-weight:900; line-height:0.95; color:var(--cream); margin-bottom:12px; }
-  .hero-title em { color:var(--goldf); font-style:italic; }
-  .hero-desc { font-size:12px; color:rgba(245,240,232,0.55); line-height:1.6; max-width:280px; }
+/* STAT PILLS */
+.stat-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 16px; }
+.stat-pill { border-radius: var(--r); padding: 16px 12px; text-align: center; }
+.stat-num { font-family: 'Instrument Serif', serif; font-size: 38px; line-height: 1; display: block; }
+.stat-lbl { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; margin-top: 3px; opacity: 0.7; }
 
-  /* STAT CARDS */
-  .stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:18px; }
-  .stat-card { background:var(--warm); border-radius:var(--r); padding:16px 10px; text-align:center; }
-  .stat-num { font-family:'Playfair Display',serif; font-size:34px; font-weight:900; color:var(--goldf); line-height:1; display:block; }
-  .stat-label { font-size:9px; color:rgba(245,240,232,0.5); letter-spacing:1px; text-transform:uppercase; margin-top:4px; }
+/* CARDS */
+.card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--r); padding: 16px 14px; margin-bottom: 10px; }
+.card-color { border-radius: var(--r); padding: 16px 14px; margin-bottom: 10px; }
+.card-title { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; display: flex; align-items: center; gap: 6px; }
 
-  /* CARDS */
-  .card { background:#fff; border:1.5px solid var(--border); border-radius:var(--r); padding:18px 16px; margin-bottom:12px; }
-  .card-alt { background:var(--paper); border:1.5px solid var(--border); border-radius:var(--r); padding:18px 16px; margin-bottom:12px; }
-  .card-title { font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:var(--warm); margin-bottom:14px; display:flex; align-items:center; gap:7px; }
-  .card-title small { font-family:'DM Mono',monospace; font-size:9px; font-weight:400; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-left:auto; }
+.sec-title { font-family: 'Instrument Serif', serif; font-size: 34px; font-style: italic; line-height: 1; margin-bottom: 18px; color: var(--ink); }
+.sec-title em { color: var(--orange); font-style: normal; }
 
-  .section-title { font-family:'Playfair Display',serif; font-size:28px; font-weight:900; line-height:1.05; margin-bottom:18px; color:var(--warm); }
-  .section-title em { color:var(--rust); font-style:italic; }
+/* RANK */
+.rank-item { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border2); gap: 10px; }
+.rank-item:last-child { border-bottom: none; }
+.rank-num { font-family: 'Instrument Serif', serif; font-size: 20px; width: 28px; text-align: center; flex-shrink: 0; }
+.rk1 { color: var(--yellow); } .rk2 { color: var(--muted); } .rk3 { color: var(--orange); } .rk-r { color: var(--muted); font-size: 13px; }
+.av { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Instrument Serif', serif; font-size: 16px; flex-shrink: 0; color: #fff; }
+.rk-info { flex: 1; min-width: 0; }
+.rk-name { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rk-detail { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.rk-score { font-family: 'Instrument Serif', serif; font-size: 20px; flex-shrink: 0; }
 
-  /* RANK */
-  .rank-item { display:flex; align-items:center; padding:11px 0; border-bottom:1px solid var(--border2); gap:11px; }
-  .rank-item:last-child { border-bottom:none; }
-  .rank-num { font-family:'Playfair Display',serif; font-size:17px; font-weight:900; width:30px; text-align:center; flex-shrink:0; }
-  .rk1{color:#c8902a;} .rk2{color:#8a9aaa;} .rk3{color:#a0714a;} .rk-rest{color:var(--muted);font-size:13px;}
-  .rank-avatar { width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:16px; font-weight:900; flex-shrink:0; color:#fff; }
-  .rank-info { flex:1; min-width:0; }
-  .rank-name { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .rank-detail { font-size:11px; color:var(--muted); margin-top:1px; }
-  .rank-score { font-family:'Playfair Display',serif; font-size:18px; font-weight:900; flex-shrink:0; }
+/* INDEX BAR */
+.idx-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; margin-top: 5px; }
+.idx-fill { height: 100%; border-radius: 2px; }
 
-  .index-bar-track { height:3px; background:var(--border); border-radius:2px; overflow:hidden; margin-top:5px; }
-  .index-bar-fill { height:100%; border-radius:2px; }
+/* EXPLAINER */
+.explainer { background: var(--ink); border-radius: var(--r); padding: 22px 18px; margin-bottom: 12px; }
+.exp-title { font-family: 'Instrument Serif', serif; font-size: 22px; font-style: italic; color: var(--yellow); margin-bottom: 14px; line-height: 1.15; }
+.formula { background: rgba(245,200,66,0.12); border: 1.5px solid rgba(245,200,66,0.25); border-radius: 10px; padding: 14px; font-size: 11px; color: var(--yellow); text-align: center; line-height: 1.9; margin-bottom: 16px; letter-spacing: 0.2px; }
+.formula strong { font-size: 13px; display: block; margin-bottom: 2px; letter-spacing: 0; }
+.formula-div { height: 1px; background: rgba(245,200,66,0.2); margin: 8px 0; }
+.comp { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.comp:last-child { border-bottom: none; }
+.comp-icon { font-size: 22px; flex-shrink: 0; }
+.comp-name { font-size: 13px; font-weight: 700; color: var(--yellow); margin-bottom: 4px; }
+.comp-desc { font-size: 11px; color: rgba(255,255,255,0.45); line-height: 1.55; }
+.comp-calc { font-size: 10px; color: rgba(245,200,66,0.6); margin-top: 4px; letter-spacing: 0.2px; }
+.why { background: rgba(255,255,255,0.04); border-left: 3px solid rgba(245,200,66,0.4); border-radius: 0 8px 8px 0; padding: 12px; font-size: 11px; color: rgba(255,255,255,0.4); line-height: 1.6; margin-top: 14px; }
+.why strong { color: var(--yellow); }
 
-  /* INDICE EXPLAINER */
-  .explainer { background:var(--warm); border-radius:var(--r); padding:22px 18px; margin-bottom:12px; }
-  .explainer-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:900; font-style:italic; color:var(--goldf); margin-bottom:14px; line-height:1.1; }
-  .formula-box { background:rgba(232,184,75,0.12); border:1.5px solid rgba(232,184,75,0.3); border-radius:10px; padding:14px 12px; font-family:'DM Mono',monospace; font-size:11px; color:var(--goldf); text-align:center; letter-spacing:0.3px; line-height:1.8; margin-bottom:16px; }
-  .formula-box strong { font-size:14px; font-weight:500; display:block; margin-bottom:4px; }
-  .formula-divider { height:1px; background:rgba(232,184,75,0.2); margin:10px 0; }
-  .component { display:flex; gap:12px; align-items:flex-start; padding:12px 0; border-bottom:1px solid rgba(232,184,75,0.1); }
-  .component:last-child { border-bottom:none; }
-  .component-icon { font-size:22px; flex-shrink:0; margin-top:1px; }
-  .component-name { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:var(--goldf); margin-bottom:4px; }
-  .component-desc { font-size:11px; color:rgba(245,240,232,0.55); line-height:1.55; }
-  .component-formula { font-family:'DM Mono',monospace; font-size:10px; color:rgba(232,184,75,0.65); margin-top:5px; }
-  .why-box { background:rgba(245,240,232,0.05); border-radius:8px; padding:13px; font-size:11px; color:rgba(245,240,232,0.5); line-height:1.6; margin-top:14px; border-left:3px solid rgba(232,184,75,0.4); }
-  .why-box strong { color:var(--goldf); }
+/* FUN FACTS */
+.ff { display: flex; gap: 10px; padding: 11px 0; border-bottom: 1px solid var(--border2); align-items: flex-start; }
+.ff:last-child { border-bottom: none; }
+.ff-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+.ff-text { font-size: 12px; line-height: 1.55; flex: 1; }
+.ff-text strong { font-weight: 700; }
 
-  /* TRACKS */
-  .track-item { display:flex; align-items:center; padding:10px 0; border-bottom:1px solid var(--border2); gap:10px; }
-  .track-item:last-child { border-bottom:none; }
-  .track-pos { width:22px; text-align:center; font-family:'Playfair Display',serif; font-weight:900; font-size:14px; flex-shrink:0; }
-  .track-info { flex:1; min-width:0; }
-  .track-name { font-size:13px; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--warm); }
-  .track-artist { font-size:11px; color:var(--muted); margin-top:1px; }
-  .track-by { font-size:10px; color:var(--teal); margin-top:1px; font-family:'DM Mono',monospace; }
-  .track-pts { font-family:'Playfair Display',serif; font-size:17px; font-weight:900; flex-shrink:0; color:var(--rust); }
+/* TRACKS */
+.track-item { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border2); gap: 10px; }
+.track-item:last-child { border-bottom: none; }
+.t-pos { width: 22px; text-align: center; font-family: 'Instrument Serif', serif; font-size: 15px; flex-shrink: 0; }
+.t-info { flex: 1; min-width: 0; }
+.t-name { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.t-artist { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.t-by { font-size: 10px; color: var(--blue); margin-top: 1px; font-weight: 500; }
+.t-pts { font-family: 'Instrument Serif', serif; font-size: 18px; flex-shrink: 0; color: var(--orange); }
 
-  /* AFFINITY */
-  .affinity-voter { margin-bottom:16px; padding-bottom:16px; border-bottom:1px solid var(--border2); }
-  .affinity-voter:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
-  .affinity-name { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; margin-bottom:8px; display:flex; align-items:center; gap:7px; }
-  .affinity-arrow { color:var(--rust); }
-  .affinity-row { display:flex; align-items:center; gap:8px; font-size:12px; margin-bottom:5px; }
-  .mini-bar { height:3px; border-radius:2px; flex:1; background:var(--border2); overflow:hidden; }
-  .mini-bar-fill { height:100%; border-radius:2px; }
-  .affinity-target { color:var(--warm); flex:1; min-width:60px; }
-  .affinity-count { color:var(--muted); font-size:11px; }
+/* AFFINITY — new double section */
+.aff-player { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1.5px solid var(--border2); }
+.aff-player:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.aff-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.aff-name { font-size: 14px; font-weight: 700; }
+.aff-arrow { color: var(--orange); font-size: 12px; }
+.aff-tabs { display: flex; gap: 6px; margin-bottom: 10px; }
+.aff-tab { font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: 20px; cursor: pointer; border: 1.5px solid var(--border); color: var(--muted); transition: all 0.15s; }
+.aff-tab.active { background: var(--orange); color: #fff; border-color: var(--orange); }
+.aff-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 12px; }
+.aff-bar { flex: 1; height: 4px; background: var(--border2); border-radius: 2px; overflow: hidden; }
+.aff-bar-fill { height: 100%; border-radius: 2px; }
+.aff-target { min-width: 90px; font-size: 12px; color: var(--ink); }
+.aff-val { font-family: 'Instrument Serif', serif; font-size: 13px; font-weight: 600; color: var(--ink2); min-width: 32px; text-align: right; }
+.aff-panel { display: none; }
+.aff-panel.active { display: block; }
 
-  /* FUN FACTS */
-  .fun-fact { border-left:3px solid var(--rust); padding:10px 12px; margin-bottom:10px; background:var(--paper); border-radius:0 8px 8px 0; font-size:12px; line-height:1.55; }
-  .fun-fact:last-child { margin-bottom:0; }
-  .fun-fact strong { color:var(--rust); font-family:'Playfair Display',serif; }
-  .fun-fact-indice { border-left-color:var(--gold); }
-  .fun-fact-indice strong { color:var(--gold); }
+/* PROFILES */
+.pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.pill { font-size: 11px; font-weight: 600; padding: 6px 12px; border-radius: 20px; border: 1.5px solid var(--border); cursor: pointer; transition: all 0.15s; color: var(--muted); background: var(--white); }
+.pill.active { color: var(--orange); border-color: var(--orange); background: rgba(240,112,48,0.06); }
+.pcard { display: none; }
+.pcard.active { display: block; }
 
-  /* PROFILES */
-  .player-selector { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:18px; }
-  .player-pill { font-family:'DM Sans',sans-serif; font-size:11px; font-weight:600; padding:6px 12px; border-radius:50px; border:1.5px solid var(--border); cursor:pointer; transition:all 0.15s; color:var(--muted); background:#fff; }
-  .player-pill.active { border-color:var(--rust); color:var(--rust); background:rgba(192,69,42,0.06); }
-  .profile-card { display:none; }
-  .profile-card.active { display:block; }
-  .profile-header { background:var(--warm); border-radius:var(--r); padding:20px 18px; margin-bottom:12px; display:flex; align-items:center; gap:16px; }
-  .profile-avatar { width:62px; height:62px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:28px; font-weight:900; flex-shrink:0; color:#fff; }
-  .profile-name { font-family:'Playfair Display',serif; font-size:24px; font-weight:900; line-height:1; margin-bottom:4px; color:var(--cream); }
-  .profile-tag { font-size:11px; color:var(--goldf); margin-bottom:10px; font-family:'DM Mono',monospace; }
-  .profile-stats-mini { display:flex; gap:14px; }
-  .psv { font-family:'Playfair Display',serif; font-size:20px; font-weight:900; color:var(--goldf); display:block; line-height:1; }
-  .psl { font-size:9px; color:rgba(245,240,232,0.45); text-transform:uppercase; letter-spacing:0.8px; margin-top:2px; }
+.prof-head { border-radius: var(--r); padding: 20px 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 14px; }
+.prof-av { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Instrument Serif', serif; font-size: 26px; flex-shrink: 0; color: #fff; }
+.prof-name { font-family: 'Instrument Serif', serif; font-size: 26px; font-style: italic; line-height: 1; margin-bottom: 3px; color: #fff; }
+.prof-tag { font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 0.5px; margin-bottom: 10px; }
+.prof-stats { display: flex; gap: 14px; }
+.psv { font-family: 'Instrument Serif', serif; font-size: 22px; display: block; line-height: 1; color: var(--yellow); }
+.psl { font-size: 9px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 1px; }
 
-  .index-block { background:rgba(200,144,42,0.08); border:1.5px solid rgba(200,144,42,0.2); border-radius:12px; padding:14px 16px; display:flex; align-items:center; gap:14px; margin-bottom:12px; }
-  .index-circle { width:62px; height:62px; border-radius:50%; border:3px solid var(--gold); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:16px; font-weight:900; color:var(--gold); flex-shrink:0; }
-  .index-info-title { font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:var(--warm2); margin-bottom:3px; }
-  .index-sub { font-size:11px; color:var(--muted); line-height:1.5; }
-  .index-sub strong { color:var(--warm2); }
-  .index-rank-tag { font-family:'DM Mono',monospace; font-size:10px; background:rgba(192,69,42,0.1); color:var(--rust); padding:3px 8px; border-radius:4px; display:inline-block; margin-top:4px; }
+.idx-block { display: flex; align-items: center; gap: 12px; background: rgba(245,200,66,0.08); border: 1.5px solid rgba(245,200,66,0.2); border-radius: 12px; padding: 14px; margin-bottom: 10px; }
+.idx-circle { width: 58px; height: 58px; border-radius: 50%; border: 2.5px solid var(--yellow); display: flex; align-items: center; justify-content: center; font-family: 'Instrument Serif', serif; font-size: 17px; color: var(--yellow); flex-shrink: 0; }
+.idx-label { font-size: 11px; color: var(--muted); line-height: 1.5; }
+.idx-label strong { color: var(--ink); }
+.idx-rank { font-size: 10px; background: rgba(240,112,48,0.1); color: var(--orange); padding: 3px 8px; border-radius: 4px; display: inline-block; margin-top: 4px; font-weight: 600; }
 
-  .profile-2col { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  .mini-track-item { padding:7px 0; border-bottom:1px solid var(--border2); }
-  .mini-track-item:last-child { border-bottom:none; }
-  .mini-track-name { font-size:11px; color:var(--warm); margin-bottom:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .mini-track-artist { font-size:10px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .mini-pts { font-family:'Playfair Display',serif; font-size:12px; font-weight:900; float:right; }
-  .pts-g { color:var(--teal); } .pts-b { color:var(--rust); }
+.p2col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.mt { padding: 7px 0; border-bottom: 1px solid var(--border2); }
+.mt:last-child { border-bottom: none; }
+.mt-name { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mt-artist { font-size: 10px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mpts { font-family: 'Instrument Serif', serif; font-size: 13px; float: right; }
+.ptsg { color: var(--mint); } .ptsb { color: var(--pink); }
 
-  .podium-row { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--border2); }
-  .podium-row:last-child { border-bottom:none; }
-  .podium-name { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; flex:1; }
-  .podium-count { font-family:'Playfair Display',serif; font-size:22px; font-weight:900; }
+.pod-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border2); }
+.pod-row:last-child { border-bottom: none; }
+.pod-name { font-size: 14px; font-weight: 600; flex: 1; }
+.pod-count { font-family: 'Instrument Serif', serif; font-size: 24px; }
 
-  .kv { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border2); }
-  .kv:last-child { border-bottom:none; }
-  .kv-key { font-size:12px; color:var(--muted); }
-  .kv-val { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:var(--rust); }
+.kv { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border2); }
+.kv:last-child { border-bottom: none; }
+.kv-k { font-size: 12px; color: var(--muted); }
+.kv-v { font-family: 'Instrument Serif', serif; font-size: 16px; color: var(--orange); }
 
-  @media(max-width:380px){
-    .stats-row{grid-template-columns:1fr 1fr;}
-    .profile-2col{grid-template-columns:1fr;}
-    .hero-title{font-size:36px;}
-  }
+.tag { display: inline-block; font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 4px; letter-spacing: 0.5px; }
+
+@media(max-width:380px){.stat-row{grid-template-columns:1fr 1fr;}.p2col{grid-template-columns:1fr;}.hero-title{font-size:40px;}}
 </style>
 </head>
 <body>
 
 <nav class="nav">
   <div>
-    <div class="nav-logo">Flon<em>flon</em></div>
+    <div class="nav-logo">Flon<span>flon</span></div>
     <div class="nav-sub">Pocket Call · Saison 1</div>
   </div>
-  <div class="nav-tag">55 GAMES</div>
+  <div class="nav-weeks">53 GAMES</div>
 </nav>
 
 <div class="tabs">
@@ -193,267 +194,318 @@
 <!-- OVERVIEW -->
 <div id="overview" class="section active">
   <div class="hero">
-    <div class="hero-eyebrow">📊 Rapport Officiel · Mai 2026</div>
+    <div class="hero-blob"></div><div class="hero-blob2"></div>
+    <div class="hero-eye">📊 Rapport · Mai 2026</div>
     <div class="hero-title">Pocket<br><em>Call.</em></div>
-    <div class="hero-desc">55 semaines · 12 FLONEURs qualifiés · 588 morceaux · un seul groupe qui tient la distance.</div>
+    <div class="hero-desc">53 semaines scorées · 12 FLONEURs qualifiés · 588 morceaux · un seul groupe qui tient la distance.</div>
   </div>
-  <div class="stats-row">
-    <div class="stat-card"><span class="stat-num">55</span><div class="stat-label">Semaines</div></div>
-    <div class="stat-card"><span class="stat-num">12</span><div class="stat-label">Joueurs</div></div>
-    <div class="stat-card"><span class="stat-num">588</span><div class="stat-label">Tracks</div></div>
+
+  <div class="stat-row">
+    <div class="stat-pill" style="background:var(--yellow)"><span class="stat-num">53</span><div class="stat-lbl">Semaines</div></div>
+    <div class="stat-pill" style="background:var(--orange);color:#fff"><span class="stat-num" style="color:#fff">12</span><div class="stat-lbl">Joueurs</div></div>
+    <div class="stat-pill" style="background:var(--pink);color:#fff"><span class="stat-num" style="color:#fff">588</span><div class="stat-lbl">Tracks</div></div>
   </div>
+
   <div class="card">
     <div class="card-title">🏆 Podium général</div>
-    <div class="rank-item">
-      <div class="rank-num rk1">🥇</div><div class="rank-avatar" style="background:#c8902a">C</div>
-      <div class="rank-info"><div class="rank-name">Caroline</div><div class="rank-detail">10 victoires · 44 semaines</div></div>
-      <div class="rank-score" style="color:#c8902a">974</div>
-    </div>
-    <div class="rank-item">
-      <div class="rank-num rk2">🥈</div><div class="rank-avatar" style="background:#4a6878">R</div>
-      <div class="rank-info"><div class="rank-name">Raphaël</div><div class="rank-detail">6 victoires · 53 semaines</div></div>
-      <div class="rank-score" style="color:#8a9aaa">900</div>
-    </div>
-    <div class="rank-item">
-      <div class="rank-num rk3">🥉</div><div class="rank-avatar" style="background:#7a4a28">A</div>
-      <div class="rank-info"><div class="rank-name">Aurélie</div><div class="rank-detail">7 victoires · 51 semaines</div></div>
-      <div class="rank-score" style="color:#a0714a">864</div>
-    </div>
+    <div class="rank-item"><div class="rank-num rk1">🥇</div><div class="av" style="background:var(--yellow);color:var(--ink)">C</div><div class="rk-info"><div class="rk-name">Caroline</div><div class="rk-detail">10 victoires · 44 sem.</div></div><div class="rk-score" style="color:var(--yellow)">974</div></div>
+    <div class="rank-item"><div class="rank-num rk2">🥈</div><div class="av" style="background:var(--blue)">R</div><div class="rk-info"><div class="rk-name">Raphaël</div><div class="rk-detail">6 victoires · 53 sem.</div></div><div class="rk-score" style="color:var(--muted)">900</div></div>
+    <div class="rank-item"><div class="rank-num rk3">🥉</div><div class="av" style="background:var(--orange)">A</div><div class="rk-info"><div class="rk-name">Aurélie</div><div class="rk-detail">7 victoires · 51 sem.</div></div><div class="rk-score" style="color:var(--orange)">864</div></div>
   </div>
-  <div class="card-alt">
-    <div class="card-title">✦ Fun Facts</div>
-    <div class="fun-fact"><strong>Record absolu :</strong> Aurélie, semaine 2, avec « É Preciso Dar Um Jeito » d'Erasmo Carlos — 60 pts. Le meilleur score de toute l'histoire du groupe.</div>
-    <div class="fun-fact"><strong>La bromance parfaite :</strong> Caroline vote pour Alexandre Diani 42 fois. Alexandre vote Caroline 34 fois. Une affinité musicale hors du commun.</div>
-    <div class="fun-fact"><strong>Les gardiens du temple :</strong> Raphaël et Laurent n'ont raté que 2 semaines en 55 games — 96% d'assiduité chacun.</div>
-    <div class="fun-fact"><strong>67 morceaux à 0 point</strong> postés sur 55 semaines. Le groupe sait être sans pitié.</div>
-    <div class="fun-fact"><strong>Semaine de légende :</strong> Semaine 31 — trois morceaux dépassent 45 pts. La plus compétitive de l'histoire du Pocket Call.</div>
-    <div class="fun-fact"><strong>Caroline vs l'Indice :</strong> #1 au classement points, mais seulement #3 à l'Indice Flonflonique — elle déchire fort, mais moins souvent que Raphaël.</div>
+
+  <div class="card" style="background:var(--ink)">
+    <div class="card-title" style="color:rgba(255,255,255,0.4)">✦ Fun Facts</div>
+    <div class="ff"><div class="ff-dot" style="background:var(--yellow)"></div><div class="ff-text" style="color:rgba(255,255,255,0.7)"><strong style="color:var(--yellow)">Record absolu :</strong> Aurélie, semaine 2, « É Preciso Dar Um Jeito » d'Erasmo Carlos — 60 pts. Le meilleur score de l'histoire du groupe.</div></div>
+    <div class="ff"><div class="ff-dot" style="background:var(--pink)"></div><div class="ff-text" style="color:rgba(255,255,255,0.7)"><strong style="color:var(--pink)">Bromance :</strong> Caroline attribue 337 points à Alexandre Diani. Alexandre lui en donne 284 en retour. La paire la plus soudée du groupe.</div></div>
+    <div class="ff"><div class="ff-dot" style="background:var(--blue)"></div><div class="ff-text" style="color:rgba(255,255,255,0.7)"><strong style="color:var(--blue)">Fidélité absolue :</strong> Raphaël, Laurent et Gringo atteignent 100% d'assiduité sur leurs semaines disponibles. Les piliers du temple.</div></div>
+    <div class="ff"><div class="ff-dot" style="background:var(--orange)"></div><div class="ff-text" style="color:rgba(255,255,255,0.7)"><strong style="color:var(--orange)">67 flops à 0 pt</strong> en 53 semaines. Le groupe est sans pitié. Xanadu, Demon Host et The Sensual World savent pourquoi.</div></div>
+    <div class="ff"><div class="ff-dot" style="background:var(--mint)"></div><div class="ff-text" style="color:rgba(255,255,255,0.7)"><strong style="color:var(--mint)">Semaine de légende :</strong> Semaine 31 — trois morceaux au-dessus de 45 pts simultanément. Le sommet de la compétition.</div></div>
   </div>
+
   <div class="card">
     <div class="card-title">📈 Stats du groupe</div>
-    <div class="kv"><span class="kv-key">Score moyen par track</span><span class="kv-val">14.9 pts</span></div>
-    <div class="kv"><span class="kv-key">Taux de participation moyen</span><span class="kv-val">74%</span></div>
-    <div class="kv"><span class="kv-key">Meilleure semaine</span><span class="kv-val">92%</span></div>
-    <div class="kv"><span class="kv-key">Score moyen 1re place</span><span class="kv-val">34.5 pts</span></div>
+    <div class="kv"><span class="kv-k">Score moyen par track</span><span class="kv-v">14.9 pts</span></div>
+    <div class="kv"><span class="kv-k">Score moyen 1re place</span><span class="kv-v">34.5 pts</span></div>
+    <div class="kv"><span class="kv-k">Taux de participation moyen</span><span class="kv-v">74%</span></div>
+    <div class="kv"><span class="kv-k">Semaines scorées</span><span class="kv-v">53 / 55</span></div>
   </div>
 </div>
 
 <!-- CLASSEMENT -->
 <div id="classement" class="section">
-  <div class="section-title">Le <em>Classement</em></div>
-  <div class="card">
-    <div class="card-title">🏆 Points bruts <small>Total cumulé</small></div>
-    <div id="points-ranking"></div>
+  <div class="sec-title">Le <em>Classement</em></div>
+  <div class="card"><div class="card-title">🏆 Points bruts <span style="margin-left:auto;font-size:9px;color:var(--muted)">Total cumulé</span></div><div id="pts-rank"></div></div>
+  <div class="card" style="margin-top:12px;">
+    <div class="card-title">🔬 Indice Flonflonique <span style="margin-left:auto;font-size:9px;color:var(--muted)">Qualité × Régularité</span></div>
+    <div style="font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:12px;padding:10px;background:var(--bg);border-radius:8px;">Performance × Assiduité × Ancienneté. <span style="color:var(--orange);cursor:pointer;font-weight:600;" onclick="showTabId('indice')">Comprendre →</span></div>
+    <div id="idx-rank"></div>
   </div>
-  <div class="card" style="margin-top:14px;">
-    <div class="card-title">🔬 Indice Flonflonique <small>Qualité × Régularité</small></div>
-    <div style="font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:14px;padding:10px;background:var(--paper);border-radius:8px;">L'Indice va au-delà des points bruts — il récompense la performance, la régularité et la longévité. <span style="color:var(--rust);cursor:pointer;font-weight:600;" onclick="showTabId('indice')">Comprendre le calcul →</span></div>
-    <div id="index-ranking"></div>
-  </div>
-  <div class="card" style="margin-top:14px;"><div class="card-title">🥇 Victoires</div><div id="victories"></div></div>
-  <div class="card" style="margin-top:10px;"><div class="card-title">🥈 Deuxièmes places</div><div id="seconds"></div></div>
-  <div class="card" style="margin-top:10px;"><div class="card-title">🥉 Troisièmes places</div><div id="thirds"></div></div>
+  <div class="card" style="margin-top:12px;"><div class="card-title">🥇 Victoires</div><div id="vics"></div></div>
+  <div class="card" style="margin-top:8px;"><div class="card-title">🥈 Deuxièmes</div><div id="secs"></div></div>
+  <div class="card" style="margin-top:8px;"><div class="card-title">🥉 Troisièmes</div><div id="thirds"></div></div>
 </div>
 
 <!-- L'INDICE -->
 <div id="indice" class="section">
-  <div class="section-title">L'<em>Indice</em><br>Flonflonique</div>
-
+  <div class="sec-title"><em>L'Indice</em><br>Flonflonique</div>
   <div class="explainer">
-    <div class="explainer-title">"Un score qui dit<br>vraiment qui tu es."</div>
-    <div class="formula-box">
+    <div class="exp-title">"Un score qui dit<br>vraiment qui tu es."</div>
+    <div class="formula">
       <strong>INDICE FLONFLONIQUE</strong>
       Performance × Assiduité × Ancienneté × 100
-      <div class="formula-divider"></div>
-      <span style="opacity:0.6;font-size:10px;">Score sur ~100 · Comparable entre tous les FLONEURs</span>
+      <div class="formula-div"></div>
+      <span style="opacity:0.5;font-size:10px;">Sur ~100 · Calculé sur 53 semaines scorées</span>
     </div>
-
-    <div class="component">
-      <div class="component-icon">🎯</div>
-      <div>
-        <div class="component-name">Performance</div>
-        <div class="component-desc">Combien de points tu marques en moyenne par semaine, comparé au score maximal atteignable (une 1re place vaut ~34.5 pts). C'est ta qualité musicale brute — est-ce que le groupe vote pour toi ?</div>
-        <div class="component-formula">= Points moyens par semaine ÷ Score moyen d'une 1re place</div>
-      </div>
-    </div>
-
-    <div class="component">
-      <div class="component-icon">📅</div>
-      <div>
-        <div class="component-name">Assiduité</div>
-        <div class="component-desc">Sur toutes les semaines disponibles depuis ton arrivée dans le groupe, combien tu as réellement joué. Elle punit les absences répétées et valorise ceux qui ne loupent rien.</div>
-        <div class="component-formula">= Semaines jouées ÷ Semaines disponibles depuis ton arrivée</div>
-      </div>
-    </div>
-
-    <div class="component">
-      <div class="component-icon">⏳</div>
-      <div>
-        <div class="component-name">Ancienneté</div>
-        <div class="component-desc">Ton nombre de semaines jouées rapporté au maximum possible du groupe (55 semaines). Elle récompense ceux qui maintiennent leur niveau dans la durée — pas seulement les bons débuts.</div>
-        <div class="component-formula">= Semaines jouées ÷ 55 (total du groupe)</div>
-      </div>
-    </div>
-
-    <div class="why-box">
-      <strong>Pourquoi multiplier les trois ?</strong> Les points bruts seuls ne suffisent pas. Caroline a le plus de points en jouant moins souvent — forte performance, moins de régularité. Laurent est toujours là mais le groupe vote peu pour lui — assiduité maximale, performance modeste. L'Indice <strong>équilibre les deux</strong> : il faut bien jouer <em>et</em> être régulier <em>et</em> durer dans le temps. C'est le score le plus honnête du groupe.
-    </div>
+    <div class="comp"><div class="comp-icon">🎯</div><div><div class="comp-name">Performance</div><div class="comp-desc">Ta moyenne de points par semaine, divisée par le score d'une 1re place (~34.5 pts). C'est ta qualité musicale brute : est-ce que le groupe vote pour toi ?</div><div class="comp-calc">= Moy. pts/semaine ÷ 34.5</div></div></div>
+    <div class="comp"><div class="comp-icon">📅</div><div><div class="comp-name">Assiduité</div><div class="comp-desc">Semaines jouées sur semaines disponibles depuis ton arrivée. Punit les absences, récompense la présence constante.</div><div class="comp-calc">= Semaines jouées ÷ Semaines disponibles depuis ton arrivée</div></div></div>
+    <div class="comp"><div class="comp-icon">⏳</div><div><div class="comp-name">Ancienneté</div><div class="comp-desc">Semaines jouées sur le total du groupe (53). Récompense ceux qui maintiennent leur niveau dans la durée.</div><div class="comp-calc">= Semaines jouées ÷ 53</div></div></div>
+    <div class="why"><strong>Pourquoi multiplier les trois ?</strong> Les points bruts seuls mentent. Caroline domine les points mais joue moins souvent. Laurent est toujours là mais peu votté. Raphaël est #1 à l'Indice car il <strong>combine</strong> bonne perf, présence maximale et longévité.</div>
   </div>
-
-  <div class="card">
-    <div class="card-title">📊 Classement Indice Flonflonique</div>
-    <div id="index-ranking-full"></div>
-  </div>
-
-  <div class="card-alt" style="margin-top:14px;">
-    <div class="card-title">✦ Lire son Indice</div>
-    <div class="fun-fact fun-fact-indice"><strong>Raphaël #1 · 45.72</strong> — La régularité paie. 96% d'assiduité sur 53 semaines avec une perf solide. L'équilibre parfait des trois composantes.</div>
-    <div class="fun-fact fun-fact-indice"><strong>Caroline #3 · 41.08</strong> — Meilleure performeuse (64%) mais moins de semaines jouées. Si elle jouait autant qu'Aurélie, elle dominerait probablement.</div>
-    <div class="fun-fact fun-fact-indice"><strong>Laurent #9 · 27.13</strong> — 96% d'assiduité mais seulement 29% de performance. Toujours présent, mais le groupe vote peu pour ses morceaux. L'énigme du groupe.</div>
-    <div class="fun-fact fun-fact-indice"><strong>Bandini #12 · 5.85</strong> — 18 semaines seulement. L'Indice est bas car l'ancienneté pèse. À suivre sur la durée.</div>
+  <div class="card"><div class="card-title">📊 Classement Indice Flonflonique</div><div id="idx-rank-full"></div></div>
+  <div class="card" style="margin-top:12px;background:var(--bg)">
+    <div class="card-title">✦ Lecture rapide</div>
+    <div class="ff"><div class="ff-dot" style="background:var(--yellow)"></div><div class="ff-text"><strong>Raphaël #1 · 49.23</strong> — 100% d'assiduité sur 53 sem. La régularité + la performance = la combinaison gagnante.</div></div>
+    <div class="ff"><div class="ff-dot" style="background:var(--orange)"></div><div class="ff-text"><strong>Caroline #3 · 44.23</strong> — Meilleure perf (64%) mais moins de semaines. Elle compenserait facilement si elle jouait plus.</div></div>
+    <div class="ff"><div class="ff-dot" style="background:var(--blue)"></div><div class="ff-text"><strong>Laurent #9 · 29.21</strong> — 100% d'assiduité, 53 semaines, mais seulement 29% de perf. Toujours là, mais le groupe vote peu pour lui.</div></div>
+    <div class="ff"><div class="ff-dot" style="background:var(--pink)"></div><div class="ff-text"><strong>Bandini #12 · 6.51</strong> — 18 semaines seulement. L'ancienneté pèse. L'Indice est à construire dans la durée.</div></div>
   </div>
 </div>
 
 <!-- TRACKS -->
 <div id="tracks" class="section">
-  <div class="section-title">Top <em>Tracks</em></div>
-  <div class="card">
-    <div class="card-title">🎵 Top 10 — Morceaux légendaires</div>
-    <div id="top-tracks"></div>
-  </div>
-  <div class="card-alt" style="margin-top:14px;">
+  <div class="sec-title">Top <em>Tracks</em></div>
+  <div class="card"><div class="card-title">🎵 Top 10 légendaire</div><div id="top-tracks"></div></div>
+  <div class="card" style="margin-top:12px;background:var(--bg)">
     <div class="card-title">💀 Hall of Shame</div>
-    <div style="font-size:11px;color:var(--muted);margin-bottom:12px;line-height:1.5;">Ces morceaux ont été postés et n'ont reçu aucun vote. 0 point. Le silence absolu du groupe.</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:12px;line-height:1.5;">0 point. Le silence total du groupe.</div>
     <div id="flop-tracks"></div>
   </div>
 </div>
 
 <!-- AFFINITES -->
 <div id="affinites" class="section">
-  <div class="section-title">Affinités <em>musicales</em></div>
-  <div style="font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.5;">Qui vote pour qui ? Pour chaque FLONEUR, les 3 joueurs qui récoltent le plus de ses votes.</div>
-  <div class="card">
-    <div class="card-title">💌 Carte des votes</div>
-    <div id="affinity-map"></div>
-  </div>
+  <div class="sec-title">Affinités <em>musicales</em></div>
+  <div style="font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.5;">Pour chaque FLONEUR : les 5 joueurs qui reçoivent le plus de <strong style="color:var(--ink)">votes</strong> ou de <strong style="color:var(--ink)">points</strong>. Bascule entre les deux vues.</div>
+  <div class="card"><div class="card-title">💌 Carte des affinités</div><div id="aff-map"></div></div>
 </div>
 
 <!-- PROFILS -->
 <div id="profils" class="section">
-  <div class="section-title">Fiches <em>Joueurs</em></div>
-  <div class="player-selector" id="player-pills"></div>
+  <div class="sec-title">Fiches <em>Joueurs</em></div>
+  <div class="pills" id="player-pills"></div>
   <div id="profiles-container"></div>
 </div>
 
 <script>
-const PLAYERS=[
-  {id:'raphael',name:'Raphaël',initials:'R',color:'#4a6878',pts:900,rank:2,weeks:53,victories:6,seconds:9,thirds:4,assid:0.96,anc:0.96,perf:0.49,findex:45.72,top5:[{name:"Crimson & Clover",artist:"The Shacks",pts:46,week:29},{name:"Had I Known You Better Then",artist:"Daryl Hall & John Oates",pts:45,week:31},{name:"Then You Can Tell Me Goodbye",artist:"Bettye Swann",pts:41,week:50},{name:"Christmas Card From A Hooker In Minneapolis",artist:"Tom Waits",pts:36,week:35},{name:"Don't Be Cruel",artist:"Billy Swan",pts:34,week:2}],flop5:[{name:"Nevermind",artist:"Westerman",pts:0,week:36},{name:"Demon Host",artist:"Timber Timbre",pts:0,week:1},{name:"The Look Of Love",artist:"Dusty Springfield",pts:0,week:30},{name:"Neoclassical Massacre",artist:"Chilly Gonzales",pts:0,week:54},{name:"Funnel Of Love",artist:"Wanda Jackson",pts:0,week:53}],fans:['Aurélie (28)','M.Ullmann (20)','Gringo (18)'],votes_for:['Aurélie (29)','Alexandre D. (20)','Caroline (18)'],tag:'🧭 Pilier du groupe'},
-  {id:'aurelie',name:'Aurélie',initials:'A',color:'#7a4a28',pts:864,rank:3,weeks:51,victories:7,seconds:4,thirds:4,assid:0.93,anc:0.93,perf:0.49,findex:42.23,top5:[{name:"É Preciso Dar Um Jeito",artist:"Erasmo Carlos",pts:60,week:2},{name:"Thank You",artist:"Bonnie Raitt",pts:43,week:11},{name:"Good Time Charlie's Got the Blues",artist:"Danny O'Keefe",pts:38,week:45},{name:"Baby I'm Yours",artist:"Arctic Monkeys",pts:37,week:46},{name:"Et si je t'aime",artist:"Marie Laforêt",pts:35,week:12}],flop5:[{name:"Crazy You",artist:"Prince",pts:0,week:5},{name:"Bang Bang",artist:"Dalida",pts:0,week:33},{name:"If",artist:"Bread",pts:0,week:13},{name:"Take A Look",artist:"Irma Thomas",pts:0,week:54},{name:"Glass Eyes",artist:"Radiohead",pts:3,week:25}],fans:['Raphaël (29)','Laurent (22)','M.Ullmann (18)'],votes_for:['Raphaël (28)','Laurent (20)','Caroline (16)'],tag:'🌟 La meilleure track all-time'},
-  {id:'caroline',name:'Caroline',initials:'C',color:'#8a6a1a',pts:974,rank:1,weeks:44,victories:10,seconds:11,thirds:4,assid:0.80,anc:0.80,perf:0.64,findex:41.08,top5:[{name:"The Loop",artist:"Toro y Moi",pts:48,week:31},{name:"I Remember Caroline",artist:"Honeybus",pts:40,week:13},{name:"Death of Samantha",artist:"Yoko Ono",pts:40,week:36},{name:"Goodbye Summer",artist:"Shannon Shaw",pts:36,week:40},{name:"I'm Coming Home",artist:"Clifton Chenier",pts:35,week:52}],flop5:[{name:"Move Together",artist:"Desert Sessions",pts:0,week:11},{name:"Don't Challenge Me",artist:"Makers",pts:0,week:6},{name:"Sympathy",artist:"Rare Bird",pts:0,week:54},{name:"Find Yourself",artist:"The Meters",pts:0,week:54},{name:"I'd Rather Be with You",artist:"Bootsy Collins",pts:0,week:48}],fans:['Alexandre D. (34)','Laurent (19)','Raphaël (18)'],votes_for:['Alexandre D. (42)','Raphaël (17)','Aurélie (15)'],tag:'👑 Reine des points'},
-  {id:'mullmann',name:'M.Ullmann',initials:'M',color:'#2a6058',pts:779,rank:5,weeks:52,victories:6,seconds:7,thirds:4,assid:0.95,anc:0.95,perf:0.43,findex:38.82,top5:[{name:"Celluloid Heroes",artist:"The Kinks",pts:41,week:18},{name:"The World We Knew",artist:"Frank Sinatra",pts:38,week:30},{name:"Dramma della gelosia",artist:"Armando Trovajoli",pts:33,week:29},{name:"Just One Look",artist:"Doris Troy",pts:31,week:6},{name:"Sweet Mary",artist:"André Popp",pts:30,week:16}],flop5:[{name:"Don't Look Back",artist:"Peter Tosh",pts:0,week:32},{name:"Meaning of the Word",artist:"Barry Gibb",pts:0,week:37},{name:"Hergest Ridge",artist:"Mike Oldfield",pts:0,week:54},{name:"Lago Azul",artist:"Linda Ronstadt",pts:0,week:49},{name:"Jump Into The Fire",artist:"Harry Nilsson",pts:3,week:5}],fans:['Eglantine (25)','Jean Jacky (21)','Laurent (16)'],votes_for:['Raphaël (20)','Aurélie (18)','Jean Jacky (18)'],tag:'🔩 Fidélité de fer'},
-  {id:'alexandre',name:'Alexandre D.',initials:'A',color:'#7a3a28',pts:863,rank:4,weeks:43,victories:6,seconds:6,thirds:8,assid:0.78,anc:0.78,perf:0.58,findex:35.57,top5:[{name:"Todo Homem",artist:"Zeca Veloso & Caetano Veloso",pts:53,week:47},{name:"Same Old Place",artist:"Rab Noakes / Gerry Rafferty",pts:48,week:23},{name:"Let's Straighten It Out",artist:"O.V. Wright",pts:41,week:44},{name:"Samba & Amor",artist:"Chico Buarque",pts:40,week:34},{name:"And That's Saying A Lot",artist:"Christine Perfect",pts:40,week:8}],flop5:[{name:"Naranjita",artist:"Manduka",pts:0,week:15},{name:"New Positions",artist:"Family Time",pts:5,week:31},{name:"Be Thankful for What You Got",artist:"William DeVaughn",pts:5,week:48},{name:"Lovers Rock",artist:"TV Girl",pts:3,week:51},{name:"Love Came Here",artist:"Lhasa De Sela",pts:5,week:29}],fans:['Caroline (42)','Raphaël (20)','Jean Jacky (18)'],votes_for:['Caroline (34)','Raphaël (15)','Jean Jacky (11)'],tag:'🇧🇷 Maître du Brésil'},
-  {id:'jeanjacky',name:'Jean Jacky',initials:'J',color:'#3a5878',pts:730,rank:6,weeks:45,victories:5,seconds:4,thirds:8,assid:0.92,anc:0.82,perf:0.47,findex:35.34,top5:[{name:"Lingua Do Mundo",artist:"Tim Bernardes",pts:45,week:38},{name:"People Make The World Go Round",artist:"The Stylistics",pts:33,week:43},{name:"I Love You",artist:"Tobias Jesso Jr.",pts:30,week:42},{name:"La Notte",artist:"Andrea Laszlo De Simone",pts:28,week:27},{name:"A la fin tu gagneras",artist:"Jocelyne",pts:28,week:28}],flop5:[{name:"BOA",artist:"Sam Gendel & Sam Wilkes",pts:0,week:39},{name:"Please Set Me At Ease",artist:"Bobbi Humphrey",pts:0,week:13},{name:"Heartsong",artist:"Astghik Martirosyan",pts:0,week:29},{name:"The Sensual World",artist:"Kate Bush",pts:0,week:31},{name:"Mystic Brew",artist:"Ronnie Foster",pts:0,week:54}],fans:['M.Ullmann (18)','Raphaël (15)','Aurélie (15)'],votes_for:['M.Ullmann (21)','Aurélie (18)','Alexandre D. (18)'],tag:'🃏 Roi des 3e places'},
-  {id:'gringo',name:'Gringo',initials:'G',color:'#5a3878',pts:644,rank:7,weeks:47,victories:3,seconds:6,thirds:7,assid:0.96,anc:0.85,perf:0.40,findex:32.56,top5:[{name:"I've Been Lonely For So Long",artist:"Frederick Knight",pts:41,week:36},{name:"Washington Square",artist:"James Last",pts:38,week:37},{name:"Silly Games",artist:"Janet Kay",pts:33,week:13},{name:"A Time for Us",artist:"Joe Pass",pts:28,week:22},{name:"If You Could Read My Mind",artist:"Gordon Lightfoot",pts:28,week:15}],flop5:[{name:"Inside And Out",artist:"Feist",pts:0,week:24},{name:"Walking The Dog",artist:"Sandie Shaw",pts:0,week:30},{name:"The Sun",artist:"Shin Joong Hyun",pts:0,week:54},{name:"Not Alone Any More",artist:"Traveling Wilburys",pts:0,week:51},{name:"¿Porqué te vas?",artist:"Jeanette",pts:0,week:46}],fans:['Eglantine (20)','Laurent (18)','Raphaël (14)'],votes_for:['Raphaël (18)','Caroline (17)','Alexandre D. (15)'],tag:'🌍 Explorateur discret'},
-  {id:'eglantine',name:'Eglantine',initials:'E',color:'#6a4818',pts:643,rank:8,weeks:45,victories:5,seconds:1,thirds:4,assid:0.90,anc:0.82,perf:0.41,findex:30.51,top5:[{name:"Bougainvillea",artist:"Dickey Betts & Great Southern",pts:35,week:7},{name:"Jenny Wren",artist:"Paul McCartney",pts:35,week:14},{name:"Hurt so Good",artist:"Susan Cadogan",pts:33,week:9},{name:"I Wanna Be Your Lover",artist:"La Bionda",pts:31,week:49},{name:"It Ain't Over Yet",artist:"Rodney Crowell & Rosanne Cash",pts:30,week:25}],flop5:[{name:"Love on the Brain",artist:"Lulu Van Trapp",pts:0,week:34},{name:"Say What?",artist:"Trouble Funk",pts:0,week:8},{name:"Jeserene",artist:"Desmond Dekker",pts:0,week:15},{name:"Unexpected Places",artist:"Hortense Ellis",pts:0,week:21},{name:"Statesboro Blues",artist:"Taj Mahal",pts:0,week:54}],fans:['Charleyne (14)','Raphaël (13)','Laurent (12)'],votes_for:['M.Ullmann (25)','Gringo (20)','Aurélie (16)'],tag:'🎸 La surprenante'},
-  {id:'laurent',name:'Laurent',initials:'L',color:'#2a5830',pts:534,rank:9,weeks:53,victories:3,seconds:4,thirds:4,assid:0.96,anc:0.96,perf:0.29,findex:27.13,top5:[{name:"A Song for You",artist:"Donny Hathaway",pts:35,week:21},{name:"The Wait",artist:"Tobias Jesso Jr.",pts:33,week:25},{name:"My Flame",artist:"Bobby Caldwell",pts:30,week:5},{name:"Biggest Part of Me",artist:"Ambrosia",pts:28,week:1},{name:"Georgia",artist:"Boz Scaggs",pts:26,week:19}],flop5:[{name:"Yeah I Care",artist:"Nick Murphy",pts:0,week:29},{name:"Clearly Kim",artist:"Pages",pts:0,week:54},{name:"Memory Be a Blade",artist:"waterbaby",pts:0,week:50},{name:"We're Still Friends",artist:"Donny Hathaway",pts:0,week:48},{name:"This House Is Empty Now",artist:"Elvis Costello",pts:0,week:53}],fans:['Aurélie (20)','Raphaël (14)','M.Ullmann (12)'],votes_for:['Aurélie (22)','Caroline (19)','Gringo (18)'],tag:'🧱 L\'inusable'},
-  {id:'charleyne',name:'Charleyne',initials:'C',color:'#78304a',pts:477,rank:10,weeks:30,victories:2,seconds:4,thirds:4,assid:0.86,anc:0.55,perf:0.46,findex:21.55,top5:[{name:"Gimme Little Sign",artist:"Brenton Wood",pts:51,week:32},{name:"Cowboy Gangster Politician",artist:"Goldie Boutilier",pts:31,week:27},{name:"Well Acquainted",artist:"Dick Stusso",pts:28,week:49},{name:"Guilty",artist:"Lady Wray",pts:28,week:40},{name:"Laughing on the Outside",artist:"Bernadette Carroll",pts:28,week:26}],flop5:[{name:"Easy Easy",artist:"King Krule",pts:0,week:39},{name:"Congratulations",artist:"MGMT",pts:0,week:54},{name:"Linger",artist:"Royel Otis",pts:0,week:46},{name:"Up All Night",artist:"SAULT",pts:0,week:55},{name:"You Let My Tyres Down",artist:"Tropical Fuck Storm",pts:3,week:25}],fans:['M.Ullmann (12)','Gaspard R. (11)','Eglantine (11)'],votes_for:['Eglantine (14)','Raphaël (13)','Gaspard R. (9)'],tag:'⭐ Rookie solide'},
-  {id:'gaspard',name:'Gaspard R.',initials:'G',color:'#386048',pts:445,rank:11,weeks:41,victories:2,seconds:1,thirds:2,assid:0.75,anc:0.75,perf:0.31,findex:17.49,top5:[{name:"Jesus, Etc.",artist:"Wilco",pts:41,week:32},{name:"Don't Dream It's Over",artist:"Crowded House",pts:35,week:26},{name:"Our Mutual Friend",artist:"The Divine Comedy",pts:26,week:22},{name:"Something Is",artist:"Richard Hawley",pts:25,week:1},{name:"The Night",artist:"Frankie Valli & The Four Seasons",pts:25,week:23}],flop5:[{name:"Love, Love, Love",artist:"Bobby Hebb",pts:0,week:7},{name:"All I See Is You",artist:"Dusty Springfield",pts:0,week:11},{name:"Xanadu",artist:"Olivia Newton-John",pts:0,week:17},{name:"Rip It Up",artist:"Orange Juice",pts:0,week:18},{name:"Lua",artist:"Conor Oberst & Gillian Welch",pts:0,week:50}],fans:['Laurent (14)','M.Ullmann (12)','Gringo (10)'],votes_for:['Aurélie (14)','Caroline (12)','M.Ullmann (11)'],tag:'🎯 Les grands classiques'},
-  {id:'bandini',name:'Bandini',initials:'B',color:'#5a3860',pts:185,rank:12,weeks:18,victories:0,seconds:0,thirds:3,assid:0.60,anc:0.33,perf:0.30,findex:5.85,top5:[{name:"Greyhound Goin' Somewhere",artist:"Bobbie Gentry",pts:33,week:36},{name:"Don't Make Promises",artist:"Tim Hardin",pts:23,week:45},{name:"It's Time to Leave Her",artist:"Mike Tingley",pts:23,week:38},{name:"Mucho Mungo / Mt. Elga",artist:"Harry Nilsson",pts:20,week:51},{name:"Got to Get a Message to You",artist:"Swamp Dogg",pts:20,week:41}],flop5:[{name:"Que Nadie Sepa Mi Sufrir",artist:"Los Lobos",pts:0,week:42},{name:"Ohye Atar Gyan",artist:"Ebo Taylor",pts:0,week:54},{name:"I Want To See The Bright Lights Tonight",artist:"Richard & Linda Thompson",pts:3,week:37},{name:"Wot's...Uh the Deal",artist:"Pink Floyd",pts:3,week:27},{name:"I've Got A Mind For Loving You",artist:"Theo Lawrence",pts:3,week:53}],fans:['Gringo (9)','Laurent (6)','Eglantine (5)'],votes_for:['Eglantine (6)','Aurélie (6)','M.Ullmann (5)'],tag:'🌱 La montée en puissance'},
+const C = {yellow:'#f5c842',orange:'#f07030',pink:'#e8547a',blue:'#3a6fd8',mint:'#42c4a8',purple:'#8b5cf6',teal:'#0d9488',rose:'#f43f5e'};
+const COLORS = [C.blue,C.orange,C.yellow,C.teal,C.pink,C.purple,C.mint,C.rose,C.teal,C.pink,C.orange,C.blue];
+
+const PLAYERS = [
+  {id:'raphael',name:'Raphaël',initials:'R',col:C.blue,pts:900,rank:2,weeks:53,victories:6,seconds:9,thirds:4,assid:1.00,anc:1.00,perf:0.49,findex:49.23,
+   votes_top5:[['Aurélie',28],['Alexandre D.',20],['Caroline',18],['Jean Jacky',15],['Laurent',14]],
+   pts_top5:[['Aurélie',205],['Caroline',120],['Alexandre D.',117],['Jean Jacky',92],['Laurent',80]],
+   top5:[{n:"Crimson & Clover",a:"The Shacks",p:46,w:29},{n:"Had I Known You Better Then",a:"Daryl Hall & John Oates",p:45,w:31},{n:"Then You Can Tell Me Goodbye",a:"Bettye Swann",p:41,w:50},{n:"Christmas Card From A Hooker",a:"Tom Waits",p:36,w:35},{n:"Don't Be Cruel",a:"Billy Swan",p:34,w:2}],
+   flop5:[{n:"Nevermind",a:"Westerman",p:0,w:36},{n:"Demon Host",a:"Timber Timbre",p:0,w:1},{n:"The Look Of Love",a:"Dusty Springfield",p:0,w:30},{n:"Neoclassical Massacre",a:"Chilly Gonzales",p:0,w:54},{n:"Funnel Of Love",a:"Wanda Jackson",p:0,w:53}],
+   tag:'🧭 Pilier du groupe'},
+  {id:'aurelie',name:'Aurélie',initials:'A',col:C.orange,pts:864,rank:3,weeks:51,victories:7,seconds:4,thirds:4,assid:0.96,anc:0.96,perf:0.49,findex:45.48,
+   votes_top5:[['Raphaël',27],['Laurent',19],['Caroline',15],['Jean Jacky',15],['Gringo',14]],
+   pts_top5:[['Raphaël',167],['Laurent',115],['Caroline',110],['Jean Jacky',99],['Gringo',67]],
+   top5:[{n:"É Preciso Dar Um Jeito",a:"Erasmo Carlos",p:60,w:2},{n:"Thank You",a:"Bonnie Raitt",p:43,w:11},{n:"Good Time Charlie's Got the Blues",a:"Danny O'Keefe",p:38,w:45},{n:"Baby I'm Yours",a:"Arctic Monkeys",p:37,w:46},{n:"Et si je t'aime",a:"Marie Laforêt",p:35,w:12}],
+   flop5:[{n:"Crazy You",a:"Prince",p:0,w:5},{n:"Bang Bang",a:"Dalida",p:0,w:33},{n:"If",a:"Bread",p:0,w:13},{n:"Take A Look",a:"Irma Thomas",p:0,w:54},{n:"Glass Eyes",a:"Radiohead",p:3,w:25}],
+   tag:'🌟 La meilleure track all-time'},
+  {id:'caroline',name:'Caroline',initials:'C',col:C.yellow,pts:974,rank:1,weeks:44,victories:10,seconds:11,thirds:4,assid:0.83,anc:0.83,perf:0.64,findex:44.23,
+   votes_top5:[['Alexandre D.',42],['Raphaël',17],['Aurélie',14],['Jean Jacky',10],['Charleyne',10]],
+   pts_top5:[['Alexandre D.',337],['Raphaël',93],['Aurélie',73],['Charleyne',52],['Gringo',47]],
+   top5:[{n:"The Loop",a:"Toro y Moi",p:48,w:31},{n:"I Remember Caroline",a:"Honeybus",p:40,w:13},{n:"Death of Samantha",a:"Yoko Ono",p:40,w:36},{n:"Goodbye Summer",a:"Shannon Shaw",p:36,w:40},{n:"I'm Coming Home",a:"Clifton Chenier",p:35,w:52}],
+   flop5:[{n:"Move Together",a:"Desert Sessions",p:0,w:11},{n:"Don't Challenge Me",a:"Makers",p:0,w:6},{n:"Sympathy",a:"Rare Bird",p:0,w:54},{n:"Find Yourself",a:"The Meters",p:0,w:54},{n:"I'd Rather Be with You",a:"Bootsy Collins",p:0,w:48}],
+   tag:'👑 Reine des points'},
+  {id:'mullmann',name:'M.Ullmann',initials:'M',col:C.teal,pts:779,rank:5,weeks:52,victories:6,seconds:7,thirds:4,assid:0.98,anc:0.98,perf:0.43,findex:41.81,
+   votes_top5:[['Raphaël',19],['Aurélie',18],['Jean Jacky',18],['Caroline',14],['Gringo',14]],
+   pts_top5:[['Jean Jacky',137],['Raphaël',108],['Aurélie',103],['Caroline',92],['Gaspard R.',88]],
+   top5:[{n:"Celluloid Heroes",a:"The Kinks",p:41,w:18},{n:"The World We Knew",a:"Frank Sinatra",p:38,w:30},{n:"Dramma della gelosia",a:"Armando Trovajoli",p:33,w:29},{n:"Just One Look",a:"Doris Troy",p:31,w:6},{n:"Sweet Mary",a:"André Popp",p:30,w:16}],
+   flop5:[{n:"Don't Look Back",a:"Peter Tosh",p:0,w:32},{n:"Meaning of the Word",a:"Barry Gibb",p:0,w:37},{n:"Hergest Ridge",a:"Mike Oldfield",p:0,w:54},{n:"Lago Azul",a:"Linda Ronstadt",p:0,w:49},{n:"Jump Into The Fire",a:"Harry Nilsson",p:3,w:5}],
+   tag:'🔩 Fidélité de fer'},
+  {id:'alexandre',name:'Alexandre D.',initials:'A',col:C.pink,pts:863,rank:4,weeks:43,victories:6,seconds:6,thirds:8,assid:0.81,anc:0.81,perf:0.58,findex:38.30,
+   votes_top5:[['Caroline',34],['Raphaël',15],['Jean Jacky',11],['Aurélie',8],['M.Ullmann',8]],
+   pts_top5:[['Caroline',284],['Raphaël',64],['M.Ullmann',44],['Jean Jacky',43],['Aurélie',42]],
+   top5:[{n:"Todo Homem",a:"Zeca Veloso & Caetano Veloso",p:53,w:47},{n:"Same Old Place",a:"Rab Noakes / Gerry Rafferty",p:48,w:23},{n:"Let's Straighten It Out",a:"O.V. Wright",p:41,w:44},{n:"Samba & Amor",a:"Chico Buarque",p:40,w:34},{n:"And That's Saying A Lot",a:"Christine Perfect",p:40,w:8}],
+   flop5:[{n:"Naranjita",a:"Manduka",p:0,w:15},{n:"New Positions",a:"Family Time",p:5,w:31},{n:"Be Thankful for What You Got",a:"William DeVaughn",p:5,w:48},{n:"Lovers Rock",a:"TV Girl",p:3,w:51},{n:"Love Came Here",a:"Lhasa De Sela",p:5,w:29}],
+   tag:'🇧🇷 Maître du Brésil'},
+  {id:'jeanjacky',name:'Jean Jacky',initials:'J',col:C.purple,pts:730,rank:6,weeks:45,victories:5,seconds:4,thirds:8,assid:0.96,anc:0.85,perf:0.47,findex:38.23,
+   votes_top5:[['M.Ullmann',20],['Aurélie',18],['Alexandre D.',18],['Raphaël',17],['Caroline',13]],
+   pts_top5:[['M.Ullmann',124],['Aurélie',122],['Alexandre D.',113],['Raphaël',94],['Gringo',77]],
+   top5:[{n:"Lingua Do Mundo",a:"Tim Bernardes",p:45,w:38},{n:"People Make The World Go Round",a:"The Stylistics",p:33,w:43},{n:"I Love You",a:"Tobias Jesso Jr.",p:30,w:42},{n:"La Notte",a:"Andrea Laszlo De Simone",p:28,w:27},{n:"A la fin tu gagneras",a:"Jocelyne",p:28,w:28}],
+   flop5:[{n:"BOA",a:"Sam Gendel & Sam Wilkes",p:0,w:39},{n:"Please Set Me At Ease",a:"Bobbi Humphrey",p:0,w:13},{n:"Heartsong",a:"Astghik Martirosyan",p:0,w:29},{n:"The Sensual World",a:"Kate Bush",p:0,w:31},{n:"Mystic Brew",a:"Ronnie Foster",p:0,w:54}],
+   tag:'🃏 Roi des 3e places'},
+  {id:'gringo',name:'Gringo',initials:'G',col:C.mint,pts:644,rank:7,weeks:47,victories:3,seconds:6,thirds:7,assid:1.00,anc:0.89,perf:0.40,findex:35.23,
+   votes_top5:[['Raphaël',18],['Caroline',17],['Alexandre D.',15],['M.Ullmann',15],['Aurélie',14]],
+   pts_top5:[['Raphaël',119],['Alexandre D.',100],['Jean Jacky',94],['M.Ullmann',90],['Caroline',87]],
+   top5:[{n:"I've Been Lonely For So Long",a:"Frederick Knight",p:41,w:36},{n:"Washington Square",a:"James Last",p:38,w:37},{n:"Silly Games",a:"Janet Kay",p:33,w:13},{n:"A Time for Us",a:"Joe Pass",p:28,w:22},{n:"If You Could Read My Mind",a:"Gordon Lightfoot",p:28,w:15}],
+   flop5:[{n:"Inside And Out",a:"Feist",p:0,w:24},{n:"Walking The Dog",a:"Sandie Shaw",p:0,w:30},{n:"The Sun",a:"Shin Joong Hyun",p:0,w:54},{n:"Not Alone Any More",a:"Traveling Wilburys",p:0,w:51},{n:"¿Porqué te vas?",a:"Jeanette",p:0,w:46}],
+   tag:'🌍 Explorateur discret'},
+  {id:'eglantine',name:'Eglantine',initials:'E',col:C.rose,pts:643,rank:8,weeks:45,victories:5,seconds:1,thirds:4,assid:0.94,anc:0.85,perf:0.41,findex:32.98,
+   votes_top5:[['M.Ullmann',25],['Gringo',19],['Aurélie',15],['Raphaël',14],['Caroline',12]],
+   pts_top5:[['M.Ullmann',152],['Gringo',134],['Aurélie',83],['Raphaël',80],['Charleyne',64]],
+   top5:[{n:"Bougainvillea",a:"Dickey Betts & Great Southern",p:35,w:7},{n:"Jenny Wren",a:"Paul McCartney",p:35,w:14},{n:"Hurt so Good",a:"Susan Cadogan",p:33,w:9},{n:"I Wanna Be Your Lover",a:"La Bionda",p:31,w:49},{n:"It Ain't Over Yet",a:"Rodney Crowell",p:30,w:25}],
+   flop5:[{n:"Love on the Brain",a:"Lulu Van Trapp",p:0,w:34},{n:"Say What?",a:"Trouble Funk",p:0,w:8},{n:"Jeserene",a:"Desmond Dekker",p:0,w:15},{n:"Unexpected Places",a:"Hortense Ellis",p:0,w:21},{n:"Statesboro Blues",a:"Taj Mahal",p:0,w:54}],
+   tag:'🎸 La surprenante'},
+  {id:'laurent',name:'Laurent',initials:'L',col:C.teal,pts:534,rank:9,weeks:53,victories:3,seconds:4,thirds:4,assid:1.00,anc:1.00,perf:0.29,findex:29.21,
+   votes_top5:[['Aurélie',22],['Caroline',18],['Gringo',18],['M.Ullmann',16],['Raphaël',15]],
+   pts_top5:[['Aurélie',115],['Gringo',105],['Caroline',103],['M.Ullmann',103],['Jean Jacky',101]],
+   top5:[{n:"A Song for You",a:"Donny Hathaway",p:35,w:21},{n:"The Wait",a:"Tobias Jesso Jr.",p:33,w:25},{n:"My Flame",a:"Bobby Caldwell",p:30,w:5},{n:"Biggest Part of Me",a:"Ambrosia",p:28,w:1},{n:"Georgia",a:"Boz Scaggs",p:26,w:19}],
+   flop5:[{n:"Yeah I Care",a:"Nick Murphy",p:0,w:29},{n:"Clearly Kim",a:"Pages",p:0,w:54},{n:"Memory Be a Blade",a:"waterbaby",p:0,w:50},{n:"We're Still Friends",a:"Donny Hathaway",p:0,w:48},{n:"This House Is Empty Now",a:"Elvis Costello",p:0,w:53}],
+   tag:'🧱 L\'inusable'},
+  {id:'charleyne',name:'Charleyne',initials:'C',col:C.pink,pts:477,rank:10,weeks:30,victories:2,seconds:4,thirds:4,assid:0.91,anc:0.57,perf:0.46,findex:23.72,
+   votes_top5:[['Eglantine',14],['Raphaël',12],['Gaspard R.',9],['Jean Jacky',8],['Caroline',8]],
+   pts_top5:[['Eglantine',107],['Raphaël',88],['M.Ullmann',54],['Gaspard R.',49],['Jean Jacky',44]],
+   top5:[{n:"Gimme Little Sign",a:"Brenton Wood",p:51,w:32},{n:"Cowboy Gangster Politician",a:"Goldie Boutilier",p:31,w:27},{n:"Well Acquainted",a:"Dick Stusso",p:28,w:49},{n:"Guilty",a:"Lady Wray",p:28,w:40},{n:"Laughing on the Outside",a:"Bernadette Carroll",p:28,w:26}],
+   flop5:[{n:"Easy Easy",a:"King Krule",p:0,w:39},{n:"Congratulations",a:"MGMT",p:0,w:54},{n:"Linger",a:"Royel Otis",p:0,w:46},{n:"Up All Night",a:"SAULT",p:0,w:55},{n:"You Let My Tyres Down",a:"Tropical Fuck Storm",p:3,w:25}],
+   tag:'⭐ Rookie solide'},
+  {id:'gaspard',name:'Gaspard R.',initials:'G',col:C.mint,pts:445,rank:11,weeks:41,victories:2,seconds:1,thirds:2,assid:0.77,anc:0.77,perf:0.31,findex:18.83,
+   votes_top5:[['Aurélie',14],['Caroline',12],['M.Ullmann',11],['Laurent',11],['Charleyne',11]],
+   pts_top5:[['Aurélie',82],['M.Ullmann',76],['Charleyne',76],['Laurent',70],['Caroline',68]],
+   top5:[{n:"Jesus, Etc.",a:"Wilco",p:41,w:32},{n:"Don't Dream It's Over",a:"Crowded House",p:35,w:26},{n:"Our Mutual Friend",a:"The Divine Comedy",p:26,w:22},{n:"Something Is",a:"Richard Hawley",p:25,w:1},{n:"The Night",a:"Frankie Valli & The Four Seasons",p:25,w:23}],
+   flop5:[{n:"Love, Love, Love",a:"Bobby Hebb",p:0,w:7},{n:"All I See Is You",a:"Dusty Springfield",p:0,w:11},{n:"Xanadu",a:"Olivia Newton-John",p:0,w:17},{n:"Rip It Up",a:"Orange Juice",p:0,w:18},{n:"Lua",a:"Conor Oberst",p:0,w:50}],
+   tag:'🎯 Les grands classiques'},
+  {id:'bandini',name:'Bandini',initials:'B',col:C.purple,pts:185,rank:12,weeks:18,victories:0,seconds:0,thirds:3,assid:0.64,anc:0.34,perf:0.30,findex:6.51,
+   votes_top5:[['Eglantine',6],['Aurélie',6],['M.Ullmann',5],['Alexandre D.',5],['Jean Jacky',4]],
+   pts_top5:[['Eglantine',53],['Aurélie',34],['Alexandre D.',31],['Jean Jacky',28],['M.Ullmann',26]],
+   top5:[{n:"Greyhound Goin' Somewhere",a:"Bobbie Gentry",p:33,w:36},{n:"Don't Make Promises",a:"Tim Hardin",p:23,w:45},{n:"It's Time to Leave Her",a:"Mike Tingley",p:23,w:38},{n:"Mucho Mungo / Mt. Elga",a:"Harry Nilsson",p:20,w:51},{n:"Got to Get a Message to You",a:"Swamp Dogg",p:20,w:41}],
+   flop5:[{n:"Que Nadie Sepa Mi Sufrir",a:"Los Lobos",p:0,w:42},{n:"Ohye Atar Gyan",a:"Ebo Taylor",p:0,w:54},{n:"I Want To See The Bright Lights Tonight",a:"Richard & Linda Thompson",p:3,w:37},{n:"Wot's...Uh the Deal",a:"Pink Floyd",p:3,w:27},{n:"I've Got A Mind For Loving You",a:"Theo Lawrence",p:3,w:53}],
+   tag:'🌱 La montée en puissance'},
 ];
-const VIC=[{name:'Caroline',count:10},{name:'Aurélie',count:7},{name:'Raphaël',count:6},{name:'M.Ullmann',count:6},{name:'Alexandre D.',count:6},{name:'Eglantine',count:5},{name:'Jean Jacky',count:5},{name:'Gringo',count:3},{name:'Laurent',count:3},{name:'Gaspard R.',count:2},{name:'Charleyne',count:2}];
-const SEC=[{name:'Caroline',count:11},{name:'Raphaël',count:9},{name:'M.Ullmann',count:7},{name:'Gringo',count:6},{name:'Alexandre D.',count:6},{name:'Jean Jacky',count:4},{name:'Aurélie',count:4},{name:'Laurent',count:4},{name:'Charleyne',count:4},{name:'Gaspard R.',count:1},{name:'Eglantine',count:1}];
-const THI=[{name:'Jean Jacky',count:8},{name:'Alexandre D.',count:8},{name:'Gringo',count:7},{name:'Raphaël',count:4},{name:'Laurent',count:4},{name:'Caroline',count:4},{name:'Aurélie',count:4},{name:'M.Ullmann',count:4},{name:'Charleyne',count:4},{name:'Eglantine',count:4},{name:'Bandini',count:3},{name:'Gaspard R.',count:2}];
-const TOP=[{name:"É Preciso Dar Um Jeito, Meu Amigo",artist:"Erasmo Carlos",player:"Aurélie",pts:60,week:2},{name:"Todo Homem - Ao Vivo",artist:"Zeca Veloso / Caetano Veloso",player:"Alexandre D.",pts:53,week:47},{name:"Gimme Little Sign",artist:"Brenton Wood",player:"Charleyne",pts:51,week:32},{name:"Same Old Place",artist:"Rab Noakes / Gerry Rafferty",player:"Alexandre D.",pts:48,week:23},{name:"The Loop",artist:"Toro y Moi",player:"Caroline",pts:48,week:31},{name:"Crimson & Clover",artist:"The Shacks",player:"Raphaël",pts:46,week:29},{name:"Lingua Do Mundo",artist:"Tim Bernardes",player:"Jean Jacky",pts:45,week:38},{name:"Had I Known You Better Then",artist:"Daryl Hall & John Oates",player:"Raphaël",pts:45,week:31},{name:"Thank You",artist:"Bonnie Raitt",player:"Aurélie",pts:43,week:11},{name:"I've Been Lonely For So Long",artist:"Frederick Knight",player:"Gringo",pts:41,week:36}];
-const FLOP=[{name:"Xanadu",artist:"Olivia Newton-John",player:"Gaspard R.",week:17},{name:"Demon Host",artist:"Timber Timbre",player:"Raphaël",week:1},{name:"Crazy You",artist:"Prince",player:"Aurélie",week:5},{name:"Rip It Up",artist:"Orange Juice",player:"Gaspard R.",week:18},{name:"The Sensual World",artist:"Kate Bush",player:"Jean Jacky",week:31},{name:"¿Porqué te vas?",artist:"Jeanette",player:"Gringo",week:46},{name:"Say What?",artist:"Trouble Funk",player:"Eglantine",week:8},{name:"Congratulations",artist:"MGMT",player:"Charleyne",week:54}];
+
+const VIC=[{n:'Caroline',c:10},{n:'Aurélie',c:7},{n:'Raphaël',c:6},{n:'M.Ullmann',c:6},{n:'Alexandre D.',c:6},{n:'Eglantine',c:5},{n:'Jean Jacky',c:5},{n:'Gringo',c:3},{n:'Laurent',c:3},{n:'Gaspard R.',c:2},{n:'Charleyne',c:2}];
+const SEC=[{n:'Caroline',c:11},{n:'Raphaël',c:9},{n:'M.Ullmann',c:7},{n:'Gringo',c:6},{n:'Alexandre D.',c:6},{n:'Jean Jacky',c:4},{n:'Aurélie',c:4},{n:'Laurent',c:4},{n:'Charleyne',c:4},{n:'Gaspard R.',c:1},{n:'Eglantine',c:1}];
+const THI=[{n:'Jean Jacky',c:8},{n:'Alexandre D.',c:8},{n:'Gringo',c:7},{n:'Raphaël',c:4},{n:'Laurent',c:4},{n:'Caroline',c:4},{n:'Aurélie',c:4},{n:'M.Ullmann',c:4},{n:'Charleyne',c:4},{n:'Eglantine',c:4},{n:'Bandini',c:3},{n:'Gaspard R.',c:2}];
+const TOP=[{n:"É Preciso Dar Um Jeito, Meu Amigo",a:"Erasmo Carlos",pl:"Aurélie",p:60,w:2},{n:"Todo Homem - Ao Vivo",a:"Zeca Veloso / Caetano Veloso",pl:"Alexandre D.",p:53,w:47},{n:"Gimme Little Sign",a:"Brenton Wood",pl:"Charleyne",p:51,w:32},{n:"Same Old Place",a:"Rab Noakes / Gerry Rafferty",pl:"Alexandre D.",p:48,w:23},{n:"The Loop",a:"Toro y Moi",pl:"Caroline",p:48,w:31},{n:"Crimson & Clover",a:"The Shacks",pl:"Raphaël",p:46,w:29},{n:"Lingua Do Mundo",a:"Tim Bernardes",pl:"Jean Jacky",p:45,w:38},{n:"Had I Known You Better Then",a:"Daryl Hall & John Oates",pl:"Raphaël",p:45,w:31},{n:"Thank You",a:"Bonnie Raitt",pl:"Aurélie",p:43,w:11},{n:"I've Been Lonely For So Long",a:"Frederick Knight",pl:"Gringo",p:41,w:36}];
+const FLOP=[{n:"Xanadu",a:"Olivia Newton-John",pl:"Gaspard R.",w:17},{n:"Demon Host",a:"Timber Timbre",pl:"Raphaël",w:1},{n:"Crazy You",a:"Prince",pl:"Aurélie",w:5},{n:"Rip It Up",a:"Orange Juice",pl:"Gaspard R.",w:18},{n:"The Sensual World",a:"Kate Bush",pl:"Jean Jacky",w:31},{n:"¿Porqué te vas?",a:"Jeanette",pl:"Gringo",w:46},{n:"Say What?",a:"Trouble Funk",pl:"Eglantine",w:8},{n:"Congratulations",a:"MGMT",pl:"Charleyne",w:54}];
 
 function showTab(id,el){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById(id).classList.add('active');if(el)el.classList.add('active');}
 function showTabId(id){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.tab').forEach(t=>{if(t.textContent.includes('Indice'))t.classList.add('active');});}
-function pc(r){return r===1?'#c8902a':r===2?'#8a9aaa':r===3?'#a0714a':'var(--muted)';}
 
-function buildPtsRank(){const s=[...PLAYERS].sort((a,b)=>a.rank-b.rank);document.getElementById('points-ranking').innerHTML=s.map(p=>{const m=p.rank<=3?['🥇','🥈','🥉'][p.rank-1]:`#${p.rank}`;const c=p.rank<=3?`rk${p.rank}`:'rk-rest';return`<div class="rank-item"><div class="rank-num ${c}">${m}</div><div class="rank-avatar" style="background:${p.color}">${p.initials}</div><div class="rank-info"><div class="rank-name">${p.name}</div><div class="rank-detail">${p.weeks} sem. · ${p.victories} victoires</div></div><div class="rank-score" style="color:${pc(p.rank)}">${p.pts}</div></div>`}).join('');}
+function buildPtsRank(){
+  const s=[...PLAYERS].sort((a,b)=>a.rank-b.rank);
+  document.getElementById('pts-rank').innerHTML=s.map(p=>{
+    const m=p.rank<=3?['🥇','🥈','🥉'][p.rank-1]:`#${p.rank}`;
+    const cls=p.rank<=3?`rk${p.rank}`:'rk-r';
+    const sc=p.rank===1?C.yellow:p.rank===2?'var(--muted)':p.rank===3?C.orange:'var(--ink)';
+    return`<div class="rank-item"><div class="rank-num ${cls}">${m}</div><div class="av" style="background:${p.col}${p.col===C.yellow?';color:#1a1510':''}">${p.initials}</div><div class="rk-info"><div class="rk-name">${p.name}</div><div class="rk-detail">${p.weeks} sem. · ${p.victories} victoires</div></div><div class="rk-score" style="color:${sc}">${p.pts}</div></div>`;
+  }).join('');
+}
 
-function buildIdx(elId){const s=[...PLAYERS].sort((a,b)=>b.findex-a.findex);const max=s[0].findex;const cs=['#c8902a','#8a9aaa','#a0714a','#c0452a','#2a7c75','#2a7c75','#2a7c75','#2a7c75','#2a7c75','#9a8e7e','#9a8e7e','#9a8e7e'];document.getElementById(elId).innerHTML=s.map((p,i)=>{const w=(p.findex/max*100).toFixed(0);const c=cs[i];return`<div style="padding:10px 0;border-bottom:1px solid var(--border2);"><div style="display:flex;align-items:center;gap:9px;margin-bottom:5px;"><div style="font-family:'Playfair Display',serif;font-weight:900;width:20px;color:${c};font-size:13px;">#${i+1}</div><div class="rank-avatar" style="width:30px;height:30px;background:${p.color};font-size:13px;">${p.initials}</div><div style="flex:1;font-family:'Playfair Display',serif;font-weight:700;font-size:14px;">${p.name}</div><div style="font-family:'Playfair Display',serif;font-weight:900;font-size:17px;color:${c}">${p.findex}</div></div><div style="display:flex;gap:8px;font-size:10px;color:var(--muted);margin-left:59px;margin-bottom:4px;"><span>Perf ${(p.perf*100).toFixed(0)}%</span>·<span>Assid ${(p.assid*100).toFixed(0)}%</span>·<span>Anc ${(p.anc*100).toFixed(0)}%</span></div><div style="margin-left:59px;"><div class="index-bar-track"><div class="index-bar-fill" style="width:${w}%;background:${c};opacity:0.65;"></div></div></div></div>`;}).join('');}
+function buildIdx(elId){
+  const s=[...PLAYERS].sort((a,b)=>b.findex-a.findex);
+  const max=s[0].findex;
+  const barC=[C.yellow,C.orange,C.pink,C.blue,C.mint,C.purple,C.rose,C.teal,C.orange,C.pink,C.mint,C.purple];
+  document.getElementById(elId).innerHTML=s.map((p,i)=>{
+    const w=(p.findex/max*100).toFixed(0);
+    const c=barC[i];
+    return`<div style="padding:10px 0;border-bottom:1px solid var(--border2)"><div style="display:flex;align-items:center;gap:8px;margin-bottom:5px"><div style="font-family:'Instrument Serif',serif;width:20px;font-size:14px;color:${c}">#${i+1}</div><div class="av" style="width:30px;height:30px;font-size:12px;background:${p.col}${p.col===C.yellow?';color:#1a1510':''}">${p.initials}</div><div style="flex:1;font-size:14px;font-weight:600">${p.name}</div><div style="font-family:'Instrument Serif',serif;font-size:18px;color:${c}">${p.findex}</div></div><div style="display:flex;gap:8px;font-size:10px;color:var(--muted);margin-left:58px;margin-bottom:4px"><span>Perf ${(p.perf*100).toFixed(0)}%</span>·<span>Assid ${(p.assid*100).toFixed(0)}%</span>·<span>Anc ${(p.anc*100).toFixed(0)}%</span></div><div style="margin-left:58px"><div class="idx-bar"><div class="idx-fill" style="width:${w}%;background:${c};opacity:0.7"></div></div></div></div>`;
+  }).join('');
+}
 
-function buildPod(data,elId,emoji){document.getElementById(elId).innerHTML=data.map((d,i)=>`<div class="podium-row"><div style="font-size:18px;width:24px;">${emoji}</div><div class="podium-name">${d.name}</div><div class="podium-count" style="color:${i===0?'var(--rust)':'var(--warm)'}">${d.count}</div></div>`).join('');}
+function buildPod(data,elId,emoji){
+  const max=data[0].c;
+  document.getElementById(elId).innerHTML=data.map((d,i)=>`<div class="pod-row"><div style="font-size:16px;width:22px">${emoji}</div><div class="pod-name">${d.n}</div><div class="pod-count" style="color:${i===0?'var(--orange)':'var(--ink)'}">${d.c}</div></div>`).join('');
+}
 
-function buildTop(){document.getElementById('top-tracks').innerHTML=TOP.map((t,i)=>`<div class="track-item"><div class="track-pos" style="color:${i<3?'var(--rust)':'var(--muted)'}">${i<3?['①','②','③'][i]:i+1}</div><div class="track-info"><div class="track-name">${t.name}</div><div class="track-artist">${t.artist}</div><div class="track-by">par ${t.player} · semaine ${t.week}</div></div><div class="track-pts">${t.pts}</div></div>`).join('');}
+function buildTop(){
+  document.getElementById('top-tracks').innerHTML=TOP.map((t,i)=>`<div class="track-item"><div class="t-pos" style="color:${i<3?'var(--orange)':'var(--muted)'}">${i<3?['①','②','③'][i]:i+1}</div><div class="t-info"><div class="t-name">${t.n}</div><div class="t-artist">${t.a}</div><div class="t-by">par ${t.pl} · S${t.w}</div></div><div class="t-pts">${t.p}</div></div>`).join('');
+}
 
-function buildFlop(){document.getElementById('flop-tracks').innerHTML=FLOP.map(t=>`<div class="track-item"><div class="track-pos" style="color:var(--muted)">✗</div><div class="track-info"><div class="track-name">${t.name}</div><div class="track-artist">${t.artist}</div><div class="track-by">par ${t.player} · semaine ${t.week}</div></div><div class="track-pts" style="color:var(--muted);font-size:13px;">0</div></div>`).join('');}
+function buildFlop(){
+  document.getElementById('flop-tracks').innerHTML=FLOP.map(t=>`<div class="track-item"><div class="t-pos" style="color:var(--muted)">✗</div><div class="t-info"><div class="t-name">${t.n}</div><div class="t-artist">${t.a}</div><div class="t-by">par ${t.pl} · S${t.w}</div></div><div class="t-pts" style="color:var(--muted);font-size:13px">0</div></div>`).join('');
+}
 
-function buildAff(){const cols=['var(--rust)','var(--gold)','var(--teal)'];document.getElementById('affinity-map').innerHTML=PLAYERS.map(p=>{const maxV=parseInt(p.votes_for[0].replace(')','').split(' (')[1]);const items=p.votes_for.map((vf,i)=>{const[name,cnt]=vf.replace(')','').split(' (');const pct=Math.round(parseInt(cnt)/maxV*100);return`<div class="affinity-row"><div class="mini-bar"><div class="mini-bar-fill" style="width:${pct}%;background:${cols[i]};opacity:0.5;"></div></div><div class="affinity-target">${name}</div><div class="affinity-count">${cnt} votes</div></div>`;}).join('');return`<div class="affinity-voter"><div class="affinity-name"><div class="rank-avatar" style="width:28px;height:28px;font-size:12px;background:${p.color}">${p.initials}</div>${p.name} <span class="affinity-arrow">→</span></div>${items}</div>`;}).join('');}
+function buildAff(){
+  const affColors=[C.orange,C.blue,C.pink,C.mint,C.purple];
+  document.getElementById('aff-map').innerHTML=PLAYERS.map((p,pi)=>{
+    const maxV=p.votes_top5[0][1];
+    const maxP=p.pts_top5[0][1];
+    const vRows=p.votes_top5.map((v,i)=>`<div class="aff-row"><div class="aff-target">${v[0]}</div><div class="aff-bar"><div class="aff-bar-fill" style="width:${Math.round(v[1]/maxV*100)}%;background:${affColors[i]};opacity:0.6"></div></div><div class="aff-val">${v[1]} votes</div></div>`).join('');
+    const pRows=p.pts_top5.map((v,i)=>`<div class="aff-row"><div class="aff-target">${v[0]}</div><div class="aff-bar"><div class="aff-bar-fill" style="width:${Math.round(v[1]/maxP*100)}%;background:${affColors[i]};opacity:0.6"></div></div><div class="aff-val">${v[1]} pts</div></div>`).join('');
+    return`<div class="aff-player">
+      <div class="aff-header"><div class="av" style="width:30px;height:30px;font-size:12px;background:${p.col}${p.col===C.yellow?';color:#1a1510':''}">${p.initials}</div><div class="aff-name">${p.name}</div><span class="aff-arrow">→</span></div>
+      <div class="aff-tabs">
+        <div class="aff-tab active" onclick="switchAff(${pi},'votes',this)">Votes</div>
+        <div class="aff-tab" onclick="switchAff(${pi},'pts',this)">Points</div>
+      </div>
+      <div class="aff-panel active" id="aff-${pi}-votes">${vRows}</div>
+      <div class="aff-panel" id="aff-${pi}-pts">${pRows}</div>
+    </div>`;
+  }).join('');
+}
+
+function switchAff(pi,type,el){
+  const parent=el.closest('.aff-player');
+  parent.querySelectorAll('.aff-tab').forEach(t=>t.classList.remove('active'));
+  parent.querySelectorAll('.aff-panel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(`aff-${pi}-${type}`).classList.add('active');
+}
 
 function buildProfiles(){
   const iS=[...PLAYERS].sort((a,b)=>b.findex-a.findex);
-  document.getElementById('player-pills').innerHTML=PLAYERS.map((p,i)=>`<div class="player-pill ${i===0?'active':''}" onclick="selP('${p.id}',this)">${p.name}</div>`).join('');
+  document.getElementById('player-pills').innerHTML=PLAYERS.map((p,i)=>`<div class="pill ${i===0?'active':''}" onclick="selP('${p.id}',this)">${p.name}</div>`).join('');
   document.getElementById('profiles-container').innerHTML=PLAYERS.map((p,i)=>{
     const iR=iS.findIndex(x=>x.id===p.id)+1;
-    const t5=p.top5.map(t=>`<div class="mini-track-item"><div class="mini-track-name"><span class="mini-pts pts-g">${t.pts}</span> ${t.name}</div><div class="mini-track-artist">${t.artist} · S${t.week}</div></div>`).join('');
-    const f5=p.flop5.map(t=>`<div class="mini-track-item"><div class="mini-track-name"><span class="mini-pts pts-b">${t.pts}</span> ${t.name}</div><div class="mini-track-artist">${t.artist} · S${t.week}</div></div>`).join('');
-    return`<div class="profile-card ${i===0?'active':''}" id="profile-${p.id}">
-      <div class="profile-header">
-        <div class="profile-avatar" style="background:${p.color}">${p.initials}</div>
+    const t5=p.top5.map(t=>`<div class="mt"><div class="mt-name"><span class="mpts ptsg">${t.p}</span>${t.n}</div><div class="mt-artist">${t.a} · S${t.w}</div></div>`).join('');
+    const f5=p.flop5.map(t=>`<div class="mt"><div class="mt-name"><span class="mpts ptsb">${t.p}</span>${t.n}</div><div class="mt-artist">${t.a} · S${t.w}</div></div>`).join('');
+    const ytextCol=p.col===C.yellow?'color:#1a1510':'';
+    return`<div class="pcard ${i===0?'active':''}" id="profile-${p.id}">
+      <div class="prof-head" style="background:${p.col}">
+        <div class="prof-av" style="background:rgba(0,0,0,0.2);${ytextCol}">${p.initials}</div>
         <div style="flex:1">
-          <div class="profile-name">${p.name}</div>
-          <div class="profile-tag">${p.tag}</div>
-          <div class="profile-stats-mini">
-            <div><span class="psv">${p.pts}</span><div class="psl">Points</div></div>
-            <div><span class="psv">#${p.rank}</span><div class="psl">Rang</div></div>
-            <div><span class="psv">${p.weeks}</span><div class="psl">Games</div></div>
-            <div><span class="psv">${p.victories}</span><div class="psl">🏆</div></div>
+          <div class="prof-name" style="${ytextCol}">${p.name}</div>
+          <div class="prof-tag" style="${p.col===C.yellow?'color:rgba(26,21,16,0.5)':''}">${p.tag}</div>
+          <div class="prof-stats">
+            <div><span class="psv" style="${ytextCol}">${p.pts}</span><div class="psl" style="${p.col===C.yellow?'color:rgba(26,21,16,0.4)':''}">Pts</div></div>
+            <div><span class="psv" style="${ytextCol}">#${p.rank}</span><div class="psl" style="${p.col===C.yellow?'color:rgba(26,21,16,0.4)':''}">Rang</div></div>
+            <div><span class="psv" style="${ytextCol}">${p.weeks}</span><div class="psl" style="${p.col===C.yellow?'color:rgba(26,21,16,0.4)':''}">Games</div></div>
+            <div><span class="psv" style="${ytextCol}">${p.victories}</span><div class="psl" style="${p.col===C.yellow?'color:rgba(26,21,16,0.4)':''}">🏆</div></div>
           </div>
         </div>
       </div>
-
-      <div class="index-block">
-        <div class="index-circle">${p.findex}</div>
-        <div style="flex:1">
-          <div class="index-info-title">Indice Flonflonique</div>
-          <div class="index-sub">Perf <strong>${(p.perf*100).toFixed(0)}%</strong> · Assid <strong>${(p.assid*100).toFixed(0)}%</strong> · Anc <strong>${(p.anc*100).toFixed(0)}%</strong></div>
-          <div class="index-rank-tag">#${iR} sur 12</div>
+      <div class="idx-block">
+        <div class="idx-circle">${p.findex}</div>
+        <div>
+          <div style="font-size:12px;font-weight:600;margin-bottom:3px">Indice Flonflonique</div>
+          <div class="idx-label">Perf <strong>${(p.perf*100).toFixed(0)}%</strong> · Assid <strong>${(p.assid*100).toFixed(0)}%</strong> · Anc <strong>${(p.anc*100).toFixed(0)}%</strong></div>
+          <div class="idx-rank">#${iR} sur 12</div>
         </div>
       </div>
-
-      <div class="profile-2col">
-        <div class="card"><div class="card-title" style="color:var(--teal)">⬆ Top 5</div>${t5}</div>
-        <div class="card"><div class="card-title" style="color:var(--rust)">⬇ Flops</div>${f5}</div>
+      <div class="p2col">
+        <div class="card"><div class="card-title" style="color:var(--mint)">⬆ Top 5</div>${t5}</div>
+        <div class="card"><div class="card-title" style="color:var(--pink)">⬇ Flops</div>${f5}</div>
       </div>
-
       <div class="card" style="margin-top:0">
         <div class="card-title">🎭 Podiums</div>
         <div style="display:flex;gap:16px;justify-content:center;padding:6px 0">
-          <div style="text-align:center"><div style="font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:#c8902a">${p.victories}</div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px">🥇 Victoires</div></div>
-          <div style="text-align:center"><div style="font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:#8a9aaa">${p.seconds}</div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px">🥈 2e places</div></div>
-          <div style="text-align:center"><div style="font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:#a0714a">${p.thirds}</div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px">🥉 3e places</div></div>
+          <div style="text-align:center"><div style="font-family:'Instrument Serif',serif;font-size:32px;color:var(--yellow)">${p.victories}</div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:1px">🥇</div></div>
+          <div style="text-align:center"><div style="font-family:'Instrument Serif',serif;font-size:32px;color:var(--muted)">${p.seconds}</div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:1px">🥈</div></div>
+          <div style="text-align:center"><div style="font-family:'Instrument Serif',serif;font-size:32px;color:var(--orange)">${p.thirds}</div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:1px">🥉</div></div>
         </div>
       </div>
-
       <div class="card">
-        <div class="card-title">💌 Affinités</div>
-        <div style="padding:8px 0;border-bottom:1px solid var(--border2)">
-          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Votes donnés à →</div>
-          <div style="font-size:12px;line-height:1.7;color:var(--warm)">${p.votes_for.join(' · ')}</div>
-        </div>
-        <div style="padding:8px 0">
-          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Soutenu par ←</div>
-          <div style="font-size:12px;line-height:1.7;color:var(--warm)">${p.fans.join(' · ')}</div>
-        </div>
+        <div class="card-title">💌 Affinités — Votes donnés</div>
+        ${p.votes_top5.map((v,i)=>`<div class="aff-row"><div class="aff-target">${v[0]}</div><div class="aff-bar"><div class="aff-bar-fill" style="width:${Math.round(v[1]/p.votes_top5[0][1]*100)}%;background:${C.orange};opacity:0.5"></div></div><div class="aff-val">${v[1]}</div></div>`).join('')}
       </div>
     </div>`;
   }).join('');
 }
 
-function selP(id,el){document.querySelectorAll('.player-pill').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.profile-card').forEach(c=>c.classList.remove('active'));el.classList.add('active');document.getElementById('profile-'+id).classList.add('active');document.getElementById('profile-'+id).scrollIntoView({behavior:'smooth',block:'start'});}
+function selP(id,el){
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.pcard').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('profile-'+id).classList.add('active');
+  document.getElementById('profile-'+id).scrollIntoView({behavior:'smooth',block:'start'});
+}
 
-buildPtsRank();
-buildIdx('index-ranking');
-buildIdx('index-ranking-full');
-buildPod(VIC,'victories','🥇');
-buildPod(SEC,'seconds','🥈');
-buildPod(THI,'thirds','🥉');
-buildTop();
-buildFlop();
-buildAff();
-buildProfiles();
+buildPtsRank();buildIdx('idx-rank');buildIdx('idx-rank-full');
+buildPod(VIC,'vics','🥇');buildPod(SEC,'secs','🥈');buildPod(THI,'thirds','🥉');
+buildTop();buildFlop();buildAff();buildProfiles();
 </script>
 </body>
 </html>
